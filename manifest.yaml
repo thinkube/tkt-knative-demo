@@ -1,0 +1,11 @@
+apiVersion: thinkube.io/v1
+kind: TemplateManifest
+metadata:
+  name: tkt-knative-demo
+  title: "Knative Demo — Scale-to-Zero Test Service"
+  description: A minimal Knative service for testing scale-to-zero deployments. Returns a configurable greeting, simulates processing delay, and reports its own scaling state. Use this to verify that Knative service generation, auto-scaling, and scale-to-zero work correctly.
+  version: 1.0.0
+  author: Thinkube
+  tags: ["knative", "demo", "testing", "scale-to-zero"]
+
+parameters: []

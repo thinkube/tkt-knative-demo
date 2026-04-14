@@ -1,0 +1,31 @@
+apiVersion: thinkube.io/v1
+kind: ThinkubeDeployment
+metadata:
+  name: "{{ project_name }}"
+
+spec:
+  deployment:
+    type: knative
+    minScale: 0
+    maxScale: 3
+    containerConcurrency: 5
+    timeoutSeconds: 30
+
+  containers:
+    - name: demo
+      build: .
+      port: 8080
+      size: small
+      health: /health
+
+  env:
+    - name: GREETING
+      description: "Greeting message returned by the service"
+      default: "Hello from Knative!"
+    - name: SIMULATE_WORK_MS
+      description: "Milliseconds of simulated processing per request"
+      default: "100"
+
+  routes:
+    - path: /
+      to: demo
