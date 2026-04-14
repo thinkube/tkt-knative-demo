@@ -9,9 +9,9 @@ import json
 from datetime import datetime, timezone
 from http.server import HTTPServer, BaseHTTPRequestHandler
 
-APP_NAME = "{{ project_name }}"
-APP_DESCRIPTION = "{{ project_description }}"
-AUTHOR = "{{ author_name }}"
+APP_NAME = os.environ.get("APP_NAME", "app-name")
+APP_DESCRIPTION = os.environ.get("APP_DESCRIPTION", "")
+AUTHOR = os.environ.get("AUTHOR_NAME", "")
 
 GREETING = os.environ.get("GREETING", "Hello from Knative!")
 SIMULATE_WORK_MS = int(os.environ.get("SIMULATE_WORK_MS", "100"))
