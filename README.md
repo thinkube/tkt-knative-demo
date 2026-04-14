@@ -32,11 +32,11 @@ Deploy via thinkube-control. The service will:
 kubectl get pods -n knative-demo
 
 # Send a request — should cold-start a pod
-curl https://knative-demo.kn.cmxela.com/
+curl https://knative-demo.cmxela.com/
 
 # Send parallel requests to test scaling
 for i in $(seq 1 20); do
-  curl -s https://knative-demo.kn.cmxela.com/scale-test &
+  curl -s https://knative-demo.cmxela.com/scale-test &
 done
 wait
 
