@@ -23,7 +23,7 @@ container this template declares.
 
 The walkthrough (deploy it, call it while stopped, watch it scale and return
 to zero, change the greeting) is on the documentation site:
-[Deploy a serverless service](https://github.com/thinkube/thinkube.org/blob/main/modules/ROOT/pages/playbooks/deploy-a-service-that-scales-to-zero.adoc).
+[Deploy a serverless service](https://thinkube.github.io/thinkube.org/thinkube-docs/playbooks/deploy-a-service-that-scales-to-zero.html).
 
 ## Configurable Environment Variables
 
