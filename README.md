@@ -43,3 +43,7 @@ wait
 # Check how many pods were created
 kubectl get pods -n knative-demo
 ```
+
+## License
+
+MIT. Code generated from this template is yours: no attribution required, and you may license the app you build however you choose. See [LICENSE](LICENSE).
