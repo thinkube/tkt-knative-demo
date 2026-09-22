@@ -1,3 +1,6 @@
+# Copyright Alejandro Martínez Corriá and the Thinkube contributors
+# SPDX-License-Identifier: MIT
+
 """
 Knative Demo Service — minimal scale-to-zero test application.
 Verifies Knative deployment, autoscaling, and health endpoints.
