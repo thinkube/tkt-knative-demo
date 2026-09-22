@@ -1,6 +1,6 @@
 # tkt-knative-demo
 
-Minimal Knative scale-to-zero demo template for testing thinkube deployments.
+A Thinkube app template: a minimal Knative service that scales to zero.
 
 ## What it does
 
@@ -9,6 +9,21 @@ Minimal Knative scale-to-zero demo template for testing thinkube deployments.
 - Provides a health endpoint at `/health` with uptime and request count
 - Has a `/scale-test` endpoint for load testing autoscaling
 - Simulates configurable processing delay per request
+- Answers any other path with HTTP 404
+
+## How it reaches a user
+
+A person deploys it from the Templates page in thinkube-control, part of
+[Thinkube](https://github.com/thinkube/thinkube). It needs the Knative
+optional component. It is not installed on its own.
+
+thinkube-control also uses it as a test fixture:
+`backend/tests/test_knative_service.py` renders a Knative Service from the
+container this template declares.
+
+The walkthrough (deploy it, call it while stopped, watch it scale and return
+to zero, change the greeting) is on the documentation site:
+[Deploy a serverless service](https://github.com/thinkube/thinkube.org/blob/main/modules/ROOT/pages/playbooks/deploy-a-service-that-scales-to-zero.adoc).
 
 ## Configurable Environment Variables
 
@@ -19,31 +34,24 @@ Minimal Knative scale-to-zero demo template for testing thinkube deployments.
 
 ## Deployment
 
-Deploy via thinkube-control. The service will:
-- Scale to zero when idle (no pods running)
+`thinkube.yaml` deploys it as a Knative service (`type: knative`). The service will:
+- Scale to zero when idle (no pods running, `minScale: 0`)
 - Scale up on first request (cold start)
 - Scale up to 3 pods under load (`maxScale: 3`)
 - Handle 5 concurrent requests per pod (`containerConcurrency: 5`)
+- Time out a request after 30 seconds (`timeoutSeconds: 30`)
 
-## Testing scale-to-zero
+## Working on it
 
-```bash
-# After deploying, wait ~60 seconds for scale-to-zero
-kubectl get pods -n knative-demo
-
-# Send a request — should cold-start a pod
-curl https://knative-demo.<your-domain>/
-
-# Send parallel requests to test scaling
-for i in $(seq 1 20); do
-  curl -s https://knative-demo.<your-domain>/scale-test &
-done
-wait
-
-# Check how many pods were created
-kubectl get pods -n knative-demo
-```
+| File | What it is |
+|---|---|
+| `server.py` | the HTTP server, Python standard library only |
+| `Containerfile` | the image, on the platform's `python-base` image |
+| `thinkube.yaml` | the Knative deployment and the two variables |
+| `manifest.yaml` | the template metadata |
 
 ## License
 
 MIT. Code generated from this template is yours: no attribution required, and you may license the app you build however you choose. See [LICENSE](LICENSE).
+
+Copyright Alejandro Martínez Corriá and the Thinkube contributors
